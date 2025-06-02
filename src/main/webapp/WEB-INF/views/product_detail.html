@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/cart/add}" method="post">
+  <input type="hidden" name="productId" th:value="${product.id}" />
+  <input type="number" name="quantity" min="1" value="1" />
+  <button type="submit">Thêm vào giỏ hàng</button>
+</form>
+
+</body>
+</html>

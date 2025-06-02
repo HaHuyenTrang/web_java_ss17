@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Trang chủ</title></head>
+<body>
+<h2>Danh sách sản phẩm</h2>
+<div th:each="product : ${products}">
+    <div>
+        <img th:src="@{${product.image}}" alt="Product Image" width="100">
+        <h3 th:text="${product.productName}"></h3>
+        <p th:text="${product.description}"></p>
+        <p>Giá: <span th:text="${product.price}"></span> VND</p>
+        <a th:href="@{'/product/' + ${product.id}}">Mua</a>
+    </div>
+</div>
+
+<!-- Phân trang -->
+<div>
+    <a th:href="@{/?page=${currentPage - 1}}" th:if="${currentPage > 1}">Trang trước</a>
+    <span>Trang <span th:text="${currentPage}"></span></span>
+    <a th:href="@{/?page=${currentPage + 1}}">Trang sau</a>
+</div>
+</body>
+</html>
