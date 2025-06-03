@@ -15,4 +15,7 @@ public interface ProductCartService {
     List<ProductCart> findByCustomerId(int customerId);
 
     void delete(ProductCart productCart);
+
+    void addToCart(int customerId, int productId, int quantity);
+
 }

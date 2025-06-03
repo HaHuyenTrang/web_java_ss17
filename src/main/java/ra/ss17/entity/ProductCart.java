@@ -16,10 +16,17 @@ public class ProductCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
+    @Transient
+    private int totalPrice;
     private int customerId;
     private int productId;
     private int quantity;
+
+    public void setProductId(Product product) {
+    }
+
+    public void setProductId(int productId) {
+    }
 
     // Getters và Setters
 }

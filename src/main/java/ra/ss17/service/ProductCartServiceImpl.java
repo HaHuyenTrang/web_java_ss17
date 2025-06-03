@@ -37,4 +37,21 @@ public class ProductCartServiceImpl implements ProductCartService {
     public void delete(ProductCart productCart) {
         productCartRepository.delete(productCart);
     }
+    @Override
+    public void addToCart(int customerId, int productId, int quantity) {
+        ProductCart existing = productCartRepository.findByCustomerAndProduct(customerId, productId);
+
+        if (existing == null) {
+            ProductCart newCart = new ProductCart();
+            newCart.setCustomerId(customerId);
+            newCart.setProductId(productId);
+            newCart.setQuantity(quantity);
+            productCartRepository.save(newCart);
+        } else {
+            existing.setQuantity(existing.getQuantity() + quantity);
+            productCartRepository.update(existing);
+        }
+    }
+
+
 }

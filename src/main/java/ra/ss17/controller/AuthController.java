@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ra.ss17.dto.LoginDTO;
 import ra.ss17.entity.Customer;
 import ra.ss17.repository.CustomerRepository;
-
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -48,7 +48,7 @@ public class AuthController {
     @PostMapping("/login")
     public String login(@ModelAttribute("customer") @Valid LoginDTO loginDTO,
                         BindingResult result,
-                        Model model) {
+                        Model model, HttpSession session) {
         if (result.hasErrors()) {
             return "login";
         }
@@ -61,6 +61,7 @@ public class AuthController {
         }
 
         Customer loggedIn = matched.get(0);
+        session.setAttribute("customerId", loggedIn.getId());
         if ("ADMIN".equalsIgnoreCase(loggedIn.getRole())) {
             return "redirect:/admin";
         } else {
