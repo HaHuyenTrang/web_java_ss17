@@ -7,6 +7,8 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import ra.ss17.entity.ProductCart;
 
+import java.util.List;
+
 @Repository
 public class ProductCartRepositoryImpl implements ProductCartRepository {
 
@@ -44,4 +46,25 @@ public class ProductCartRepositoryImpl implements ProductCartRepository {
         tx.commit();
         session.close();
     }
+
+    @Override
+    public List<ProductCart> findByCustomerId(int customerId) {
+        Session session = sessionFactory.openSession();
+        Query<ProductCart> query = session.createQuery("FROM ProductCart WHERE customerId = :cid", ProductCart.class);
+        query.setParameter("cid", customerId);
+        List<ProductCart> result = query.list();
+        session.close();
+        return result;
+    }
+
+    @Override
+    public void delete(ProductCart productCart) {
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        session.delete(productCart);
+        tx.commit();
+        session.close();
+    }
+
+
 }
