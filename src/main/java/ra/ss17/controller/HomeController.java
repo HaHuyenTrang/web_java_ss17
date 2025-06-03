@@ -15,7 +15,7 @@ public class HomeController {
     @Autowired
     private ProductRepository productRepository;
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String home(@RequestParam(defaultValue = "1") int page,
                        @RequestParam(defaultValue = "6") int size,
                        Model model) {
@@ -34,5 +34,18 @@ public class HomeController {
         }
         model.addAttribute("product", product);
         return "product_detail"; // product_detail.html
+    }
+    @GetMapping("/init")
+    @ResponseBody
+    public String initData() {
+        Product p1 = new Product(0, "Áo sơ mi", "Áo sơ mi trắng form rộng", 200000, 100,
+                "https://product.hstatic.net/1000096703/product/1_ed08837bea9b4ba1be7aceddfe9fee46_master.jpg");
+        Product p2 = new Product(1, "Giày sneaker", "Giày thể thao nam", 500000, 50,
+                "https://product.hstatic.net/1000312752/product/9ad06707545ec874dac433f8f0d6df2eb45c65c4119b75224706a0b38624078f777ed3_c6e623f8e2df430387fb8c8a07ca76b0.jpg");
+
+        productRepository.save(p1);
+        productRepository.save(p2);
+
+        return "Thêm sản phẩm mẫu thành công!";
     }
 }

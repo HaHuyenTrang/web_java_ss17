@@ -3,6 +3,7 @@ package ra.ss17.repository;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import ra.ss17.entity.Product;
@@ -40,5 +41,15 @@ public class ProductRepositoryImpl implements ProductRepository {
         session.close();
 
         return product;
+    }
+    @Override
+    public void save(Product product) {
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+
+        session.save(product);
+
+        tx.commit();
+        session.close();
     }
 }
